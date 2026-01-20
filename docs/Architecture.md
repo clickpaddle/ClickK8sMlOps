@@ -39,6 +39,54 @@
 ## 1. Objective
 Transform a basic Kubernetes cluster into a comprehensive MLOps platform integrating Kubeflow, KServe, ArgoCD/Argo Rollouts, monitoring, multi-tenancy, and security.
 
+```mermaid
+flowchart TB
+    %% Technology Layer
+    subgraph TECH ["Technology Layer"]
+        direction TB
+        K8S["Node: K8S Cluster"]
+        NODES["Node: Worker Nodes"]
+        NET["Communication Network: Network / Storage"]
+        ISTIO["Infrastructure Service: Istio Service Mesh"]
+        PROM["Infrastructure Service: Prometheus"]
+    end
+
+    %% Application Layer
+    subgraph APP ["Application Layer"]
+        direction TB
+        KUBEFLOW["Application Cpt: Kubeflow"]
+        KSERVE["Application Cpt: KServe"]
+        IRIS["Data Obj / Application Cpt: Iris Model"]
+        GRAF["Application Cpt: Grafana"]
+        ARGO["Application Cpt: ArgoCD"]
+        GIT["Data Object: Git Repositories"]
+    end
+
+    %% Technology Layer relations
+    K8S --> NODES
+    K8S --> NET
+    K8S --> ISTIO
+    K8S --> PROM
+    ISTIO --> PROM
+
+    %% Application Layer relations
+    KSERVE --> IRIS
+    PROM --> GRAF
+    ARGO --> GIT
+
+    %% Cross-layer relations
+    ISTIO --> KSERVE
+    ISTIO --> KUBEFLOW
+    K8S --> KUBEFLOW
+    K8S --> KSERVE
+    K8S --> GRAF
+    KSERVE --> PROM
+    KUBEFLOW --> PROM
+    ARGO --> K8S
+
+                               
+```
+
 ## 2. Global Architecture
 Logical cluster structure:
 Kubernetes Cluster
