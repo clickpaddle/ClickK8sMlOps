@@ -2,7 +2,7 @@
 
 ## Click-off
 The objective of this project is to transform a basic Kubernetes cluster into a fully functional **MLOps platform** by integrating **Istio**, **KServe**, and **Kubeflow**, enabling the deployment, serving, and monitoring of AI/ML applications in production environments.
-This is a one afteroon home-made challenge 
+This is a one afteroon home-made challenge.
 
 ## Key points
 
