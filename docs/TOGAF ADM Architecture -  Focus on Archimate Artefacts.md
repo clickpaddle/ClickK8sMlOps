@@ -29,7 +29,7 @@ For our use case:
 - At this stage, the **application and technology layers are abstract**, ensuring we understand the **business needs** before technical design.
 
 **Diagram (Business Layer / Vision):**
-```
+
 ```mermaid
 flowchart TD
     subgraph BUS ["Business Layer"]
