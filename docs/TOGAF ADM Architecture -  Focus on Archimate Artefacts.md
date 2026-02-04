@@ -28,7 +28,7 @@ For our use case:
 - **Business Layer**: “Iris Classification” as a **business service** consumed by external users.
 - At this stage, the **application and technology layers are abstract**, ensuring we understand the **business needs** before technical design.
 
-**Diagram (Business Layer / Vision):**
+**Diagram (Business Vision):**
 
 ```mermaid
 flowchart TD
@@ -37,6 +37,30 @@ flowchart TD
         BUS_SVC[["Business Service: Iris Classification"]]
     end
     USER --> BUS_SVC
+```
+**Diagram (Business Business):**
+```mermaid
+flowchart TB
+    %% Business Layer – Phase B pour IRIS (orange, sans training)
+    style BUSINESS fill:#FFA500,stroke:#333,stroke-width:2px
+
+    subgraph BUSINESS ["Business Layer (Phase B) – IRIS"]
+        direction TB
+
+        USER["Business Actor: End User / Client"]
+        DATA_SCIENTIST["Business Role: Data Scientist"]
+        PREDICTION_PROCESS["Business Process: Iris Prediction Process"]
+        VALIDATION_RULES["Business Function: Input Validation / Rules"]
+        REPORTING["Business Function: Reporting & Feedback"]
+        MODEL_REGISTRY["Business Object: IRIS Model Registry (S3)"]
+    end
+
+    %% Relations Business Layer (IRIS)
+    USER -->|triggers prediction| PREDICTION_PROCESS
+    DATA_SCIENTIST -->|owns / monitors prediction| PREDICTION_PROCESS
+    PREDICTION_PROCESS -->|applies| VALIDATION_RULES
+    PREDICTION_PROCESS -->|generates| REPORTING
+    PREDICTION_PROCESS -->|reads| MODEL_REGISTRY
 ```
 
 ## 2️⃣ Phase C – Information Systems & Data Architecture
@@ -100,6 +124,10 @@ Phases D and E detail **how the solution is realized and deployed**, moving from
 - **Infrastructure & Observability**: Pods running the model, S3 storage for model weights, monitoring via Prometheus/Grafana.
 
 **Phase D/E Diagram – Solution & DevOps Ready:**
+
+Shows all explicit technical flows: HTTPS requests, proxies, auto-scaling, artifact pulls from S3, metrics exposure via Prometheus/Grafana.
+Clear and immediately usable for development and operations teams.
+Provides a clear view of who does what, where, and how, without relying on architectural terminology.
 
 ```mermaid
 flowchart TB
@@ -165,6 +193,110 @@ flowchart TB
     POD_ML -- "Exposes Metrics" --> PROM
     ISTIO -- "Reports Telemetry" --> PROM
 ```
+**Phase D/E Diagram – Archimate Compliant and readable by DevOps:**
+
+Adheres to ArchiMate layers (Business / Application / Technology / Infrastructure).
+Uses exact ArchiMate terms but adds technical labels readable by DevOps.
+Ensures TOGAF traceability, while remaining understandable for technical teams.
+Clarifies the separation of Technology Services vs Technology Components, and integrates observability as a technology service.
+Practical Challenge
+This is often where friction appears:
+- Architects insist on ArchiMate vocabulary and TOGAF compliance, which is important for traceability and official documentation.
+- Technicians / DevOps teams want clear arrows and concrete labels to immediately understand runtime behavior and deployment pipelines.
+
+Even with double-labeling, some teams may “pick apart” the vocabulary or find it unnecessarily abstract for operational purposes.
+
+```mermaid
+flowchart TB
+    %% --- BUSINESS LAYER ---
+    style BUS fill:#FF9900,stroke:#333,stroke-width:2px
+    subgraph BUS ["Business Layer"]
+        CLIENT["Business Actor: External Consumer"]
+        BUS_SVC[["Business Service: Iris Classification"]]
+    end
+
+    %% --- APPLICATION LAYER ---
+    style APP fill:#00B0F0,stroke:#333,stroke-width:2px
+    subgraph APP ["Application Layer"]
+        IRIS_API[["Application Service: Iris Classification API"]]
+        MODEL_LOGIC["Application Component: ML Inference Logic"]
+    end
+
+    %% --- TECHNOLOGY / PLATFORM LAYER ---
+    style PLATFORM fill:#98FB98,stroke:#333,stroke-width:2px
+    subgraph PLATFORM ["Technology / Platform Layer"]
+        
+        subgraph TRAFFIC ["Traffic & Mesh"]
+            INGRESS["Technology Service: NGINX Ingress"]
+            ISTIO["Technology Service: Istio Service Mesh"]
+            VS_DR["Technology Object: VirtualService / Routing Rules"]
+        end
+
+        subgraph SERVING ["Model Serving"]
+            KSERVE["Technology Service: KServe Controller"]
+            KNATIVE["Technology Service: Knative Runtime (scales 0->N)"]
+            POD_ML["Technology Component: Model Pod (Instance)"]
+        end
+
+        subgraph AUTOMATION ["GitOps & Delivery"]
+            ARGO["Technology Service: ArgoCD"]
+            GIT[("Data Object: Git Repos")]
+        end
+
+        %% Observability
+        PROM["Technology Service: Prometheus / Grafana"]
+    end
+
+    %% --- INFRASTRUCTURE / DATA LAYER ---
+    style INFRA fill:#A9DFBF,stroke:#333,stroke-width:2px
+    subgraph INFRA ["Infrastructure & Data"]
+        K8S[["Technology Component: Kubernetes Cluster"]]
+        S3_MODEL[("Data Object: Model Weights (.pkl)")]
+    end
+
+    %% --- RELATIONSHIPS (double label technique / ArchiMate) ---
+
+    %% Business -> Application
+    CLIENT -->|triggers / triggers| BUS_SVC
+    BUS_SVC -.->|realized by / realized by| IRIS_API
+
+    %% Application internal
+    IRIS_API -->|executes / assigned to| MODEL_LOGIC
+
+    %% Application -> Technology / Platform
+    IRIS_API -->|HTTPS request / accesses| INGRESS
+    INGRESS -->|Proxies to / serves| ISTIO
+    ISTIO -->|Applies routing / serves| VS_DR
+    VS_DR -->|Balances traffic / serves| POD_ML
+    MODEL_LOGIC -->|Runs inside / deployed on| POD_ML
+    KSERVE -->|Orchestrates / serves| KNATIVE
+    KNATIVE -->|Scales pods / serves| POD_ML
+
+    %% DevOps / Automation
+    ARGO -->|Synchronizes / serves| K8S
+    GIT -->|Defines state / accesses| ARGO
+
+    %% Data -> Technology
+    POD_ML -->|Pulls artifact / accesses| S3_MODEL
+
+    %% Observability
+    POD_ML -->|Exports metrics / serves| PROM
+    ISTIO -->|Reports telemetry / serves| PROM
+    KNATIVE -->|Exports metrics / serves| PROM
+
+```
+
+
+
+
+
+**Final Question**
+
+In this context, which representation should be preferred for Phases D/E :
+The DevOps Ready version, clear and operational, but less formally ArchiMate?
+The ArchiMate Compliant version with double labeling, more TOGAF-compliant but slightly denser?
+Or a hybrid approach, where the ArchiMate diagram serves as a reference, and a DevOps Ready excerpt is provided to operational teams?
+The goal is to find a balance between architectural compliance and operational practicality so that all stakeholders can collaborate effectively.
 
 ## Conclusion
 
