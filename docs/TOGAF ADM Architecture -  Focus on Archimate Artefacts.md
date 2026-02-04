@@ -1,4 +1,3 @@
-``txt
 # From Business Vision to DevOps: Modeling an Iris Classification Use Case Across the TOGAF ADM Cycle
 
 In modern enterprise architecture, **having a structured approach to modeling systems is crucial**. One of the challenges many organizations face is the **lack of clarity in representing Business, Application, and Technology layers**. Without disciplined modeling, these layers often become a **jumbled mix of concepts, components, and technologies**, resulting in diagrams that are difficult to interpret and misalign stakeholders.
@@ -39,7 +38,7 @@ flowchart TD
     end
     USER --> BUS_SVC
 ```
-```txt
+
 ## 2️⃣ Phase C – Information Systems & Data Architecture
 
 Phase C focuses on **Application and Data Architecture**, while keeping strong **business alignment**.
@@ -50,7 +49,7 @@ Phase C focuses on **Application and Data Architecture**, while keeping strong *
 - **Technology Layer (Capabilities)**: Abstract capabilities like **Model Serving**, **Data Storage**, **API Entry** — no runtime specifics yet.
 
 **Phase C Diagram – Conceptual / Information Systems:**
-```
+
 ```mermaid
 flowchart TD
 
@@ -90,7 +89,7 @@ flowchart TD
     MODEL_ARTIFACT -- "stored in" --> STORAGE_CAP
     TRAINING_DATA -- "stored in" --> STORAGE_CAP
 ```
-```txt
+
 ## 3️⃣ Phases D & E – Technology Architecture & Opportunities / Solutions
 
 Phases D and E detail **how the solution is realized and deployed**, moving from **conceptual to operational**.
