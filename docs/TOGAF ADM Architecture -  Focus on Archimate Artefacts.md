@@ -100,7 +100,7 @@ Phases D and E detail **how the solution is realized and deployed**, moving from
 - **Infrastructure & Observability**: Pods running the model, S3 storage for model weights, monitoring via Prometheus/Grafana.
 
 **Phase D/E Diagram – Solution & DevOps Ready:**
-```
+
 ```mermaid
 flowchart TB
 
@@ -165,3 +165,18 @@ flowchart TB
     POD_ML -- "Exposes Metrics" --> PROM
     ISTIO -- "Reports Telemetry" --> PROM
 ```
+
+## Conclusion
+
+Through this Iris Classification use case, we have walked the architecture **from business vision to deployed solution**, highlighting how the **Business, Application, and Technology layers** evolve across the **TOGAF ADM cycle**. By progressively elaborating artefacts and diagrams, we can **maintain clarity, traceability, and alignment with business objectives**, while preparing for deployment and observability.
+
+This exercise also illustrates an important point for IT architects: **not every operational detail needs to be represented**. By abstracting certain processes, such as model training in this case, we keep diagrams **focused and comprehensible**, while still conveying the essence of how business services are realized in deployable systems.
+
+Now, we would like to open the discussion to the broader **enterprise and solutions architecture community**:  
+
+- How do you approach **representing the business, application, and technology layers** in your ADM cycle?  
+- Which **phase do you focus on most** when creating diagrams for stakeholders versus DevOps teams?  
+- How do you balance **conceptual clarity** with the **practical details required for deployment**?  
+- Are there **specific artefacts or visualizations** you prefer at different phases of TOGAF ADM?
+
+Your insights and experiences are invaluable to ensure that architecture work is **both rigorous and actionable**, bridging the gap between formal enterprise architecture and practical implementation.
