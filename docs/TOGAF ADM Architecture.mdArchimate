@@ -1,0 +1,62 @@
+flowchart TB
+
+    %% --- BUSINESS LAYER (minimal) ---
+    subgraph BUS ["Business Layer"]
+        BUS_SVC[["Business Service: Iris Classification"]]
+    end
+
+    %% --- USER LAYER ---
+    subgraph USER ["User Layer"]
+        CLIENT(["External Consumer"])
+    end
+
+    %% --- APPLICATION LAYER ---
+    subgraph APP ["Application Layer"]
+        IRIS_API[["Iris Classification API"]]
+        MODEL_LOGIC{{"ML Inference Logic"}}
+    end
+
+    %% --- PLATFORM / RUNTIME LAYER ---
+    subgraph PLATFORM ["Platform & Serving Layer"]
+        
+        subgraph TRAFFIC ["Traffic & Mesh"]
+            INGRESS["NGINX Ingress"]
+            ISTIO["Istio Service Mesh"]
+            VS_DR["VirtualService (Routing Rules)"]
+        end
+
+        subgraph SERVING ["Model Serving (KServe)"]
+            KSERVE["KServe Controller"]
+            KNATIVE["Knative Runtime"]
+            POD_ML["Model Pod (Instance)"]
+        end
+
+        subgraph AUTOMATION ["GitOps & Delivery"]
+            ARGO["ArgoCD"]
+            GIT[("Git Repos")]
+        end
+    end
+
+    %% --- INFRASTRUCTURE LAYER ---
+    subgraph INFRA ["Infrastructure & Data"]
+        K8S[["Kubernetes Cluster"]]
+        S3_MODEL[("S3: Model Weights (.pkl)")]
+        PROM["Prometheus / Grafana"]
+    end
+
+    %% --- RELATIONSHIPS ---
+    CLIENT --> BUS_SVC
+    BUS_SVC -. "realized by" .-> IRIS_API
+    IRIS_API -- "HTTPS Request" --> INGRESS
+    INGRESS -- "Proxies to" --> ISTIO
+    ISTIO -- "Applies Routing" --> VS_DR
+    VS_DR -- "Balances Traffic" --> POD_ML
+    IRIS_API -- "Executes" --> MODEL_LOGIC
+    MODEL_LOGIC -- "Runs inside" --> POD_ML
+    KSERVE -- "Orchestrates" --> KNATIVE
+    KNATIVE -- "Scales (0->N)" --> POD_ML
+    ARGO -- "Synchronizes" --> K8S
+    GIT -- "Defines State" --> ARGO
+    POD_ML -- "Pulls Artifact" --> S3_MODEL
+    POD_ML -- "Exposes Metrics" --> PROM
+    ISTIO -- "Reports Telemetry" --> PROM
