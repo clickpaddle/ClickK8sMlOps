@@ -341,7 +341,7 @@ flowchart TB
 
 
 
-##Phase C/D/E – Application & Technology Architecture (IRIS)
+## Phase C/D/E – Application & Technology Architecture (IRIS)
 
 For Phases C and D/E, we have two complementary representations of the Iris Classification service, each serving a distinct purpose.
 
