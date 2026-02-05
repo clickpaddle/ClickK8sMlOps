@@ -114,6 +114,57 @@ flowchart TD
     TRAINING_DATA -- "stored in" --> STORAGE_CAP
 ```
 
+**Phase C Diagram – Conceptual / Information Systems / Archimate Compliant:**
+
+```mermaid
+flowchart TD
+    %% --- BUSINESS LAYER ---
+    style BUS fill:#FF9900,stroke:#333,stroke-width:2px
+    subgraph BUS ["Business Layer"]
+        CLIENT["Business Actor: External Consumer"]
+        BUS_SVC[["Business Service: Iris Classification"]]
+    end
+
+    %% --- APPLICATION LAYER ---
+    style APP fill:#B0E0E6,stroke:#333,stroke-width:2px
+    subgraph APP ["Application Layer"]
+        IRIS_SVC[["Application Service: Iris Classification Service"]]
+        IRIS_COMP["Application Component: Iris Predictor Logic"]
+    end
+
+    %% --- DATA OBJECTS ---
+    style DATA fill:#FFFACD,stroke:#333,stroke-width:2px
+    subgraph DATA ["Data Objects"]
+        MODEL_ARTIFACT[("Iris Model Artifact (.pkl)")]
+        TRAINING_DATA[("Iris Training Dataset")]
+    end
+
+    %% --- TECHNOLOGY / CAPABILITY LAYER ---
+    style TECH fill:#98FB98,stroke:#333,stroke-width:2px
+    subgraph TECH ["Technology Layer / Capabilities"]
+        SERVE_CAP["Capability: Model Serving"]
+        STORAGE_CAP["Capability: Data Storage / Artifact Repository"]
+        INGRESS_CAP["Capability: External Traffic / API Entry"]
+    end
+
+    %% --- RELATIONSHIPS (double label technique / ArchiMate) ---
+    
+    %% Business -> Application
+    CLIENT -->|uses / triggers| BUS_SVC
+    BUS_SVC -.->|realized by / realizes| IRIS_SVC
+
+    %% Application internal
+    IRIS_SVC -->|executes / assigned to| IRIS_COMP
+    IRIS_COMP -.->|reads / accesses| MODEL_ARTIFACT
+    IRIS_COMP -.->|reads / accesses| TRAINING_DATA
+
+    %% Application -> Technology
+    IRIS_SVC -->|exposed via / serves| INGRESS_CAP
+    IRIS_COMP -->|depends on / uses| SERVE_CAP
+    MODEL_ARTIFACT -->|stored in / accessed by| STORAGE_CAP
+    TRAINING_DATA -->|stored in / accessed by| STORAGE_CAP
+```
+
 ## 3️⃣ Phases D & E – Technology Architecture & Opportunities / Solutions
 
 Phases D and E detail **how the solution is realized and deployed**, moving from **conceptual to operational**.
@@ -290,25 +341,36 @@ flowchart TB
 
 
 
-**Final Question**
+##Phase C/D/E – Application & Technology Architecture (IRIS)
 
-In this context, which representation should be preferred for Phases D/E :
-The DevOps Ready version, clear and operational, but less formally ArchiMate?
-The ArchiMate Compliant version with double labeling, more TOGAF-compliant but slightly denser?
-Or a hybrid approach, where the ArchiMate diagram serves as a reference, and a DevOps Ready excerpt is provided to operational teams?
-The goal is to find a balance between architectural compliance and operational practicality so that all stakeholders can collaborate effectively.
+For Phases C and D/E, we have two complementary representations of the Iris Classification service, each serving a distinct purpose.
 
-## Conclusion
+1️⃣ DevOps Ready Diagram
 
-Through this Iris Classification use case, we have walked the architecture **from business vision to deployed solution**, highlighting how the **Business, Application, and Technology layers** evolve across the **TOGAF ADM cycle**. By progressively elaborating artefacts and diagrams, we can **maintain clarity, traceability, and alignment with business objectives**, while preparing for deployment and observability.
+This diagram shows all explicit technical flows, including HTTPS calls, proxies, pods, auto-scaling, artifact pulls from S3, and metrics exposed to Prometheus and Grafana. It is clear and immediately actionable for DevOps teams. It provides a precise view of who does what, where, and how in the infrastructure and deployment pipeline. Its key strength is that it is action and execution-oriented, using terminology understandable by technical teams without requiring knowledge of ArchiMate.
 
-This exercise also illustrates an important point for IT architects: **not every operational detail needs to be represented**. By abstracting certain processes, such as model training in this case, we keep diagrams **focused and comprehensible**, while still conveying the essence of how business services are realized in deployable systems.
+2️⃣ ArchiMate Compliant and DevOps Readable Diagram
 
-Now, we would like to open the discussion to the broader **enterprise and solutions architecture community**:  
+This representation respects ArchiMate layers, including Business, Application, Technology, and Data. It uses double labeling on relationships: the first term is the exact ArchiMate concept, such as realized by, assigned to, or serves, while the second is a technical term understandable by DevOps teams, such as executes, runs inside, or pulls artifact. This ensures TOGAF compliance and full traceability of artifacts and services. Its key strength is the balance between architectural rigor and operational readability, including observability, storage, and runtime details.
 
-- How do you approach **representing the business, application, and technology layers** in your ADM cycle?  
-- Which **phase do you focus on most** when creating diagrams for stakeholders versus DevOps teams?  
-- How do you balance **conceptual clarity** with the **practical details required for deployment**?  
-- Are there **specific artefacts or visualizations** you prefer at different phases of TOGAF ADM?
+Professional Takeaway
 
-Your insights and experiences are invaluable to ensure that architecture work is **both rigorous and actionable**, bridging the gap between formal enterprise architecture and practical implementation.
+Relying exclusively on ArchiMate formalism for Phases C and D/E is often too rigid. ArchiMate provides rigor, standardization, and TOGAF compliance, but it does not naturally convey runtime behavior, operational flows, or deployment details required by technical teams.
+
+Other representations, such as UML diagrams (class, component, sequence), BPMN workflows, mockups, and DevOps-ready deployment diagrams, are often more effective for communication and operational clarity. Strict adherence to ArchiMate can create friction with technical teams, while a hybrid approach ensures rigor without losing operational clarity.
+
+Strategic Question for Architecture and DevOps Teams
+
+Considering the need to balance formal architectural rigor with practical operational clarity, how do you, as:
+
+Enterprise Architects, ensure TOGAF and ArchiMate compliance without blocking technical understanding?
+
+Solution Architects, integrate UML, BPMN, and ArchiMate artifacts into the same architecture lifecycle for traceability and implementation guidance?
+
+DevOps teams, leverage these diagrams to deploy, operate, and monitor systems effectively?
+
+In other words, how do you choose which representation to use at each stage of Phases C and D/E to maximize both rigor and actionable clarity?
+
+Conclusion and Professional Judgment
+
+Providing both diagrams, DevOps Ready and ArchiMate Compliant, is the best practice. This approach reconciles architectural rigor with operational practicality. ArchiMate provides official documentation, while DevOps-ready diagrams give actionable insight to teams implementing and operating the system. This dual approach ensures communication clarity with all stakeholders while maintaining TOGAF compliance.
