@@ -359,17 +359,22 @@ Relying exclusively on ArchiMate formalism for Phases C and D/E is often too rig
 
 Other representations, such as UML diagrams (class, component, sequence), BPMN workflows, mockups, and DevOps-ready deployment diagrams, are often more effective for communication and operational clarity. Strict adherence to ArchiMate can create friction with technical teams, while a hybrid approach ensures rigor without losing operational clarity.
 
-## Strategic Question for Architecture and DevOps Teams
 
-Considering the need to balance formal architectural rigor with practical operational clarity, how do you, as:
+## Strategic Questions for Architecture and DevOps Teams
 
-Enterprise Architects, ensure TOGAF and ArchiMate compliance without blocking technical understanding?
+- How do you represent Business, Application, and Technology layers in your ADM cycle?  
+  - Do you rely on **ArchiMate** for Enterprise Architecture rigor, or prefer **BPMN, UML, C4 diagrams, or IaC visualizations** for Solution Architecture and operational clarity?
 
-Solution Architects, integrate UML, BPMN, and ArchiMate artifacts into the same architecture lifecycle for traceability and implementation guidance?
+- What shortcuts or simplifications do you apply for practical presentations to DevOps teams or business stakeholders?
 
-DevOps teams, leverage these diagrams to deploy, operate, and monitor systems effectively?
+- How do DevOps teams interpret these diagrams? Are some representations too “enterprise-heavy” to be actionable?
 
-In other words, how do you choose which representation to use at each stage of Phases C and D/E to maximize both rigor and actionable clarity?
+- Maybe you don’t use ArchiMate for every artifact—how do you approach your architecture work in that case?  
+  - How do you balance **TOGAF compliance and formal rigor** with practical deployment and operational needs in **Phases C, D, and E**?  
+  - How do Solution Architects integrate UML, BPMN, and ArchiMate artifacts into the same lifecycle for traceability and implementation guidance?
+
+- In other words, how do you choose which representation to use at each stage to **maximize both architectural rigor and actionable clarity**?
+
 
 ## Conclusion and Your Engagement in Architecture Activities ?
 
