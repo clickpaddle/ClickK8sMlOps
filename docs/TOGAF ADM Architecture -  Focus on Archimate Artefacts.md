@@ -353,13 +353,13 @@ This diagram shows all explicit technical flows, including HTTPS calls, proxies,
 
 This representation respects ArchiMate layers, including Business, Application, Technology, and Data. It uses double labeling on relationships: the first term is the exact ArchiMate concept, such as realized by, assigned to, or serves, while the second is a technical term understandable by DevOps teams, such as executes, runs inside, or pulls artifact. This ensures TOGAF compliance and full traceability of artifacts and services. Its key strength is the balance between architectural rigor and operational readability, including observability, storage, and runtime details.
 
-Professional Takeaway
+##Takeaway
 
 Relying exclusively on ArchiMate formalism for Phases C and D/E is often too rigid. ArchiMate provides rigor, standardization, and TOGAF compliance, but it does not naturally convey runtime behavior, operational flows, or deployment details required by technical teams.
 
 Other representations, such as UML diagrams (class, component, sequence), BPMN workflows, mockups, and DevOps-ready deployment diagrams, are often more effective for communication and operational clarity. Strict adherence to ArchiMate can create friction with technical teams, while a hybrid approach ensures rigor without losing operational clarity.
 
-Strategic Question for Architecture and DevOps Teams
+##Strategic Question for Architecture and DevOps Teams
 
 Considering the need to balance formal architectural rigor with practical operational clarity, how do you, as:
 
@@ -371,6 +371,6 @@ DevOps teams, leverage these diagrams to deploy, operate, and monitor systems ef
 
 In other words, how do you choose which representation to use at each stage of Phases C and D/E to maximize both rigor and actionable clarity?
 
-Conclusion and Professional Judgment
+##Conclusion and Judgment
 
 Providing both diagrams, DevOps Ready and ArchiMate Compliant, is the best practice. This approach reconciles architectural rigor with operational practicality. ArchiMate provides official documentation, while DevOps-ready diagrams give actionable insight to teams implementing and operating the system. This dual approach ensures communication clarity with all stakeholders while maintaining TOGAF compliance.
