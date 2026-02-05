@@ -378,8 +378,11 @@ Other representations, such as UML diagrams (class, component, sequence), BPMN w
 
 ## Conclusion and Your Engagement in Architecture Activities ?
 
-Providing both diagrams, DevOps Ready and ArchiMate Compliant, is the best practice. This approach reconciles architectural rigor with operational practicality. ArchiMate provides official documentation, while DevOps-ready diagrams give actionable insight to teams implementing and operating the system. This dual approach ensures communication clarity with all stakeholders while maintaining TOGAF compliance.
+Providing both diagrams, DevOps Ready and ArchiMate Compliant, might be some good practices. This approach can reconciles architectural rigor with operational practicality. ArchiMate provides official documentation, while DevOps-ready diagrams give actionable insight to teams implementing and operating the system. This dual approach ensures communication clarity with all stakeholders while maintaining TOGAF compliance.
 
-As professionals contributing to the architecture work at one level or another, and following your company’s standards of architecture, how do you manage and maintain architecture diagrams? Which practices have you found most effective to ensure that your diagrams remain both compliant, clear, and actionable for all stakeholders, from architects to DevOps teams? How do you balance rigor with operational clarity in your day-to-day work?
+As professionals contributing to architecture work at one level or another, and following your company’s standards, how do you manage and maintain architecture diagrams? Which practices have you found most effective to ensure that your diagrams remain both compliant, clear, and actionable for all stakeholders, from architects to DevOps teams? How do you balance rigor with operational clarity in your day-to-day work?
 
-Your insights and experiences can provide valuable guidance on integrating different modeling artifacts such as ArchiMate, UML, BPMN, or DevOps-ready diagrams, as well as other viewpoints with your own modeling solutions, into a coherent architecture lifecycle.
+From my side, I’ve seen a bit of everything—like a good Belgian tasting plate of beers and cheeses: the rigor of TOGAF, the pragmatism of solution architectures that speak both Enterprise Architecture and DevOps. A bit of this, a bit of that… not always ArchiMate, not always by the book, even in public services and government institutions.  A true “un peu de tout” approach, and somehow it works! And you ?
+
+
+
