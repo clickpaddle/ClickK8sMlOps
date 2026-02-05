@@ -371,6 +371,10 @@ DevOps teams, leverage these diagrams to deploy, operate, and monitor systems ef
 
 In other words, how do you choose which representation to use at each stage of Phases C and D/E to maximize both rigor and actionable clarity?
 
-## Conclusion and Judgment
+## Conclusion and You with your architecture work ? 
 
 Providing both diagrams, DevOps Ready and ArchiMate Compliant, is the best practice. This approach reconciles architectural rigor with operational practicality. ArchiMate provides official documentation, while DevOps-ready diagrams give actionable insight to teams implementing and operating the system. This dual approach ensures communication clarity with all stakeholders while maintaining TOGAF compliance.
+
+As professionals contributing to the architecture work at one level or another, and following your company’s standards of architecture, how do you manage and maintain architecture diagrams? Which practices have you found most effective to ensure that your diagrams remain both compliant, clear, and actionable for all stakeholders, from architects to DevOps teams? How do you balance rigor with operational clarity in your day-to-day work?
+
+Your insights and experiences can provide valuable guidance on integrating different modeling artifacts such as ArchiMate, UML, BPMN, or DevOps-ready diagrams, as well as other viewpoints with your own modeling solutions, into a coherent architecture lifecycle.
