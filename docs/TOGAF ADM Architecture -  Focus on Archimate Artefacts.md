@@ -63,6 +63,37 @@ flowchart TB
     PREDICTION_PROCESS -->|reads| MODEL_REGISTRY
 ```
 
+**Diagram (Business - Process):**
+```
+flowchart TB
+    style BUS fill:#FF9900,stroke:#333,stroke-width:2px
+    subgraph BUS ["Business Layer (Phase B)"]
+        USER["Business Actor: End User / Client"]
+        DATA_SCIENTIST["Business Role: Data Scientist"]
+        PREDICTION_PROCESS["Business Process: Iris Prediction Process"]
+        STEP1["Step: Receive Input"]
+        STEP2["Step: Validate Input"]
+        STEP3["Step: Predict Iris Class"]
+        STEP4["Step: Generate Report / Feedback"]
+        STEP5["Step: Notify / Deliver"]
+        BUS_SVC[["Business Service: Iris Classification"]]
+    end
+
+    %% Relations
+    USER -->|triggers| STEP1
+    STEP1 --> STEP2
+    STEP2 --> STEP3
+    STEP3 --> STEP4
+    STEP4 --> STEP5
+    DATA_SCIENTIST -->|owns / monitors| PREDICTION_PROCESS
+    PREDICTION_PROCESS -.-> STEP1
+    PREDICTION_PROCESS -.-> STEP2
+    PREDICTION_PROCESS -.-> STEP3
+    PREDICTION_PROCESS -.-> STEP4
+    PREDICTION_PROCESS -.-> STEP5
+    STEP5 -.->|realizes| BUS_SVC
+```
+
 ## 2️⃣ Phase C – Information Systems & Data Architecture
 
 Phase C focuses on **Application and Data Architecture**, while keeping strong **business alignment**.
